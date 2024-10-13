@@ -1,18 +1,19 @@
-import { Outlet } from "react-router-dom"
-import SignInPage from "./auth/sign-in"
-import { Button } from "./components/ui/button"
-
+import { Outlet } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
+import { Navigate } from "react-router-dom";
 
 function App() {
- 
+  const { user, isLoaded, isSignedIn } = useUser();
+
+  if (!isSignedIn && isLoaded) {
+    return <Navigate to="/auth/sign-in" />;
+  }
 
   return (
     <>
-   <Outlet/>
-    
-     
+      <Outlet />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
