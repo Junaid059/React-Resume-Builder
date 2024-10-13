@@ -1,12 +1,13 @@
-import React from 'react'
-import { UserButton } from '@clerk/clerk-react'
+import React from 'react';
+import { UserButton } from '@clerk/clerk-react';
+import Header from '@/components/custom/Header';
 
 function Home() {
   return (
     <div>
-      <UserButton/>
+      <Header></Header>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
