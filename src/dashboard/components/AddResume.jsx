@@ -28,6 +28,16 @@ export default function AddResume() {
       email: user?.primaryEmailAddress?.emailAddress,
       userName: user?.fullName,
     };
+
+    // added local storage to add data temporaray
+    localStorage.setItem(`resume-${uuid}`, JSON.stringify(data));
+
+    // Simulate delay to show loading effect
+    setTimeout(() => {
+      console.log('Resume stored in localStorage:', data);
+      setLoading(false);
+      setOpenDialog(false);
+    }, 2000);
   };
   return (
     <div>
