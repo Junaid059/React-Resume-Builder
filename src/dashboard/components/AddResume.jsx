@@ -3,6 +3,7 @@ import { Loader2, PlusSquare } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from '@clerk/clerk-react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 import {
   Dialog,
@@ -18,6 +19,7 @@ export default function AddResume() {
   const [resumeTitle, setresumeTitle] = useState('');
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); // Initialize navigate
 
   const onCreate = () => {
     setLoading(true);
@@ -29,16 +31,17 @@ export default function AddResume() {
       userName: user?.fullName,
     };
 
-    // added local storage to add data temporaray
+    // Save to localStorage
     localStorage.setItem(`resume-${uuid}`, JSON.stringify(data));
 
-    // Simulate delay to show loading effect
+    // Simulate delay and navigate to the Edit page
     setTimeout(() => {
-      console.log('Resume stored in localStorage:', data);
       setLoading(false);
       setOpenDialog(false);
+      navigate(`/dashboard/resume/${uuid}/edit`); // Navigate to the edit page
     }, 2000);
   };
+
   return (
     <div>
       <div

@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AddResume from './components/AddResume';
+import ResumeCardItem from './components/ResumeCardItem';
 
 function Dashboard() {
+  const [resumeList, setResumeList] = useState([]);
+
+  useEffect(() => {
+    // Retrieve resumes from localStorage
+    const resumes = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.startsWith('resume-')) {
+        resumes.push(JSON.parse(localStorage.getItem(key)));
+      }
+    }
+    setResumeList(resumes);
+  }, []);
+
   return (
     <div className="p-10 md:px-20 lg:px-32">
       <h1 className="font-bold text-3xl">My Resume</h1>
-      <p className="mt-4">Start Creating AI resumes for your next job</p>{' '}
-      {/* Add margin */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-6">
+      <p className="mt-4">Start Creating AI resumes for your next job</p>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-8 mt-10">
         {' '}
-        {/* Add margin */}
+        {/* Added gap */}
         <AddResume />
+        {resumeList.length > 0 &&
+          resumeList.map((resume, index) => (
+            <ResumeCardItem resume={resume} key={index} />
+          ))}
       </div>
     </div>
   );
