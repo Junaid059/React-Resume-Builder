@@ -12,20 +12,24 @@ function SkillReview({ resumeInfo }) {
 
       <hr style={{ borderColor: resumeInfo?.themeColor }} />
       <div className="grid grid-cols-2 gap-3 my-5">
-        {resumeInfo.skills.map((skill, index) => (
-          <div key={index} className="flex items-center mb-2 justify-between">
-            <h2 className="text-xs">{skill?.name}</h2>
-            <div className="h-2 bg-gray-200 w-[120px]">
-              <div
-                className="h-2"
-                style={{
-                  backgroundColor: resumeInfo?.themeColor,
-                  width: skill?.rating + '%',
-                }}
-              ></div>
+        {resumeInfo?.skills?.length > 0 ? (
+          resumeInfo.skills.map((skill, index) => (
+            <div key={index} className="flex items-center mb-2 justify-between">
+              <h2 className="text-xs">{skill?.name}</h2>
+              <div className="h-2 bg-gray-200 w-[120px]">
+                <div
+                  className="h-2"
+                  style={{
+                    backgroundColor: resumeInfo?.themeColor,
+                    width: skill?.rating + '%',
+                  }}
+                ></div>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>No skills available</p>
+        )}
       </div>
     </div>
   );
