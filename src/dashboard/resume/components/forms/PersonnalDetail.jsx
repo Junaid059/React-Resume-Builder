@@ -1,21 +1,48 @@
 import { resumeInfoContext } from '@/context/resumeInfoContext';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
-function PersonnalDetail() {
-  const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext); // Fixed typo here
+function PersonnalDetail({ setEnableNext, setDataSaved }) {
+  // Accept setDataSaved as a prop
+  const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
 
+  // Handle input change and update resumeInfo
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setResumeInfo((prev) => ({
       ...prev,
       [name]: value,
     }));
+
+    // Check if all fields are filled
+    const allFieldsFilled = Object.values({
+      firstName: resumeInfo.firstName || '',
+      lastName: resumeInfo.lastName || '',
+      jobTitle: resumeInfo.jobTitle || '',
+      address: resumeInfo.address || '',
+      phone: resumeInfo.phone || '',
+      email: resumeInfo.email || '',
+    }).every((field) => field.trim() !== '');
+
+    // Update enableNext based on whether all fields are filled
+    setEnableNext(allFieldsFilled && dataSaved);
   };
 
   const onSave = (e) => {
     e.preventDefault(); // Prevent default form submit behavior
     // Here, you can handle form submission (e.g., saving the resumeInfo data)
     console.log('Saved data:', resumeInfo);
+    setDataSaved(true); // Set dataSaved to true after saving
+    // Check if all fields are filled again to update enableNext
+    const allFieldsFilled = Object.values({
+      firstName: resumeInfo.firstName || '',
+      lastName: resumeInfo.lastName || '',
+      jobTitle: resumeInfo.jobTitle || '',
+      address: resumeInfo.address || '',
+      phone: resumeInfo.phone || '',
+      email: resumeInfo.email || '',
+    }).every((field) => field.trim() !== '');
+
+    setEnableNext(allFieldsFilled); // Update enableNext based on fields' filled status
   };
 
   return (
