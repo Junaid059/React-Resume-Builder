@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import PersonnalDetail from './forms/PersonnalDetail.jsx';
 import { ArrowRight, ArrowLeft, LayoutGrid } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Summary from './forms/Summary.jsx';
 
 function FormSection() {
   const [activeForm, setActiveForm] = useState(1);
   const [enableNext, setEnableNext] = useState(false);
-  const [dataSaved, setDataSaved] = useState(false); // New state to track if data is saved
+  const [dataSaved, setDataSaved] = useState(false);
 
-  // Function to handle "Next" and "Back" buttons
   const handleNext = () => {
     if (enableNext && dataSaved) {
-      // Proceed to the next form only if conditions are met
       setActiveForm((prev) => prev + 1);
+      setEnableNext(false); // Reset for the next form
+      setDataSaved(false); // Reset for the next form
     }
   };
 
@@ -25,7 +26,6 @@ function FormSection() {
   return (
     <div>
       <div className="flex justify-between items-center mt-4">
-        {/* Left-aligned Theme button */}
         <div>
           <button className="flex gap-2 items-center border px-3 py-1 text-sm rounded-md">
             <LayoutGrid />
@@ -33,7 +33,6 @@ function FormSection() {
           </button>
         </div>
 
-        {/* Conditionally rendered Back button if activeForm > 1 */}
         <div>
           {activeForm > 1 && (
             <Button
@@ -47,13 +46,12 @@ function FormSection() {
           )}
         </div>
 
-        {/* Right-aligned Next button, disabled if enableNext is false or data isn't saved */}
         <div>
           <Button
             onClick={handleNext}
             size="sm"
             className="flex items-center border px-3 py-1 text-sm bg-purple-500 text-white rounded-md"
-            disabled={!enableNext || !dataSaved} // Disable button based on conditions
+            disabled={!enableNext || !dataSaved}
           >
             Next
             <ArrowRight className="ml-2" />
@@ -61,13 +59,15 @@ function FormSection() {
         </div>
       </div>
 
-      {/* Conditionally rendering the PersonnalDetail form if activeForm === 1 */}
-      {activeForm === 1 && (
+      {/* Render the forms based on the active step */}
+      {activeForm === 1 ? (
         <PersonnalDetail
           setEnableNext={setEnableNext}
           setDataSaved={setDataSaved}
         />
-      )}
+      ) : activeForm === 2 ? (
+        <Summary setEnableNext={setEnableNext} setDataSaved={setDataSaved} />
+      ) : null}
     </div>
   );
 }

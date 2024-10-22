@@ -1,11 +1,10 @@
 import { resumeInfoContext } from '@/context/resumeInfoContext';
 import React, { useContext } from 'react';
+import { toast } from 'sonner';
 
 function PersonnalDetail({ setEnableNext, setDataSaved }) {
-  // Accept setDataSaved as a prop
   const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
 
-  // Handle input change and update resumeInfo
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setResumeInfo((prev) => ({
@@ -13,7 +12,6 @@ function PersonnalDetail({ setEnableNext, setDataSaved }) {
       [name]: value,
     }));
 
-    // Check if all fields are filled
     const allFieldsFilled = Object.values({
       firstName: resumeInfo.firstName || '',
       lastName: resumeInfo.lastName || '',
@@ -23,16 +21,16 @@ function PersonnalDetail({ setEnableNext, setDataSaved }) {
       email: resumeInfo.email || '',
     }).every((field) => field.trim() !== '');
 
-    // Update enableNext based on whether all fields are filled
-    setEnableNext(allFieldsFilled && dataSaved);
+    setEnableNext(allFieldsFilled && setDataSaved);
   };
 
   const onSave = (e) => {
-    e.preventDefault(); // Prevent default form submit behavior
-    // Here, you can handle form submission (e.g., saving the resumeInfo data)
+    e.preventDefault();
+
     console.log('Saved data:', resumeInfo);
-    setDataSaved(true); // Set dataSaved to true after saving
-    // Check if all fields are filled again to update enableNext
+    toast.success('Details updated!');
+    setDataSaved(true);
+
     const allFieldsFilled = Object.values({
       firstName: resumeInfo.firstName || '',
       lastName: resumeInfo.lastName || '',
@@ -42,7 +40,7 @@ function PersonnalDetail({ setEnableNext, setDataSaved }) {
       email: resumeInfo.email || '',
     }).every((field) => field.trim() !== '');
 
-    setEnableNext(allFieldsFilled); // Update enableNext based on fields' filled status
+    setEnableNext(allFieldsFilled);
   };
 
   return (
@@ -56,10 +54,11 @@ function PersonnalDetail({ setEnableNext, setDataSaved }) {
             <input
               type="text"
               name="firstName"
-              value={resumeInfo.firstName || ''} // Add value to make it controlled
+              defaultValue={resumeInfo?.firstName}
+              value={resumeInfo.firstName || ''}
               required
               onChange={handleInputChange}
-              className="border rounded-md p-2 w-full" // Added classes for visibility
+              className="border rounded-md p-2 w-full"
             />
           </div>
 
@@ -68,10 +67,11 @@ function PersonnalDetail({ setEnableNext, setDataSaved }) {
             <input
               type="text"
               name="lastName"
+              defaultValue={resumeInfo?.lastName}
               value={resumeInfo.lastName || ''}
               required
               onChange={handleInputChange}
-              className="border rounded-md p-2 w-full" // Added classes for visibility
+              className="border rounded-md p-2 w-full"
             />
           </div>
           <div className="col-span-2">
@@ -79,10 +79,11 @@ function PersonnalDetail({ setEnableNext, setDataSaved }) {
             <input
               type="text"
               name="jobTitle"
+              defaultValue={resumeInfo?.jobTitle}
               value={resumeInfo.jobTitle || ''}
               required
               onChange={handleInputChange}
-              className="border rounded-md p-2 w-full" // Added classes for visibility
+              className="border rounded-md p-2 w-full"
             />
           </div>
           <div className="col-span-2">
@@ -90,10 +91,11 @@ function PersonnalDetail({ setEnableNext, setDataSaved }) {
             <input
               type="text"
               name="address"
+              defaultValue={resumeInfo?.address}
               value={resumeInfo.address || ''}
               required
               onChange={handleInputChange}
-              className="border rounded-md p-2 w-full" // Added classes for visibility
+              className="border rounded-md p-2 w-full"
             />
           </div>
           <div>
@@ -101,21 +103,23 @@ function PersonnalDetail({ setEnableNext, setDataSaved }) {
             <input
               type="text"
               name="phone"
+              defaultValue={resumeInfo?.phone}
               value={resumeInfo.phone || ''}
               required
               onChange={handleInputChange}
-              className="border rounded-md p-2 w-full" // Added classes for visibility
+              className="border rounded-md p-2 w-full"
             />
           </div>
           <div>
             <label className="text-sm">Email</label>
             <input
-              type="email" // Use "email" input type for validation
+              type="email"
               name="email"
+              defaultValue={resumeInfo?.email}
               value={resumeInfo.email || ''}
               required
               onChange={handleInputChange}
-              className="border rounded-md p-2 w-full" // Added classes for visibility
+              className="border rounded-md p-2 w-full"
             />
           </div>
         </div>
