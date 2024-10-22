@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { resumeInfoContext } from '@/context/resumeInfoContext';
+import { Brain } from 'lucide-react';
 
 function Summary({ setEnableNext, setDataSaved }) {
   const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
@@ -34,8 +35,10 @@ function Summary({ setEnableNext, setDataSaved }) {
           <label>Add Summary</label>
           <button
             type="button"
-            className="p-1.5 rounded-lg text-purple-500 border-2 border-purple-400 hover:bg-purple-50 hover:border-purple-500 transition-colors duration-200"
+            className="flex items-center p-1.5 rounded-lg text-purple-500 border-2 border-purple-400 hover:bg-purple-50 hover:border-purple-500 transition-colors duration-200"
           >
+            <Brain className="h-4 w-4 mr-2" />{' '}
+            {/* Add margin-right to the icon for spacing */}
             Generate with AI
           </button>
         </div>
