@@ -1,28 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { resumeInfoContext } from '@/context/resumeInfoContext';
-import { Brain } from 'lucide-react';
 
 function Summary({ setEnableNext, setDataSaved }) {
   const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
 
-  // Initialize state with existing summary from resumeInfo
   const [summary, setSummary] = useState(resumeInfo.summary || '');
 
   const handleSave = (e) => {
-    e.preventDefault(); // Ensure the default form submit action is prevented
-    console.log('Saving summary:', summary);
-
+    e.preventDefault();
     if (summary.trim()) {
       setResumeInfo((prevInfo) => ({
         ...prevInfo,
         summary,
       }));
-      setEnableNext(true); // Enable the "Next" button
-      setDataSaved(true); // Mark data as saved
-      console.log('Summary saved. EnableNext and DataSaved set to true');
+      setEnableNext(true);
+      setDataSaved(true);
     } else {
-      console.log('Summary is empty. Cannot save.');
     }
   };
 
@@ -33,14 +27,6 @@ function Summary({ setEnableNext, setDataSaved }) {
       <form onSubmit={handleSave}>
         <div className="flex justify-between items-baseline mt-10">
           <label>Add Summary</label>
-          <button
-            type="button"
-            className="flex items-center p-1.5 rounded-lg text-purple-500 border-2 border-purple-400 hover:bg-purple-50 hover:border-purple-500 transition-colors duration-200"
-          >
-            <Brain className="h-4 w-4 mr-2" />{' '}
-            {/* Add margin-right to the icon for spacing */}
-            Generate with AI
-          </button>
         </div>
 
         <Textarea
@@ -53,7 +39,7 @@ function Summary({ setEnableNext, setDataSaved }) {
 
         <div className="mt-6 flex justify-end">
           <button
-            type="submit" // Ensure this is a submit button
+            type="submit"
             className="bg-purple-500 rounded-md p-1.5 w-20 text-white hover:bg-blue-400"
           >
             Save
