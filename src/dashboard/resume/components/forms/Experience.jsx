@@ -90,7 +90,9 @@ function Experience() {
                     className="border px-2 py-1 w-full"
                   />
                 </div>
-                <RichTextEditor />
+                <div className="col-span-2">
+                  <RichTextEditor />
+                </div>
               </div>
             </div>
           ))}
