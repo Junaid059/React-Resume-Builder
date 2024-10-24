@@ -3,6 +3,7 @@ import PersonnalDetail from './forms/PersonnalDetail.jsx';
 import { ArrowRight, ArrowLeft, LayoutGrid } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Summary from './forms/Summary.jsx';
+import Experience from './forms/Experience.jsx';
 
 function FormSection() {
   const [activeForm, setActiveForm] = useState(1);
@@ -12,8 +13,8 @@ function FormSection() {
   const handleNext = () => {
     if (enableNext && dataSaved) {
       setActiveForm((prev) => prev + 1);
-      setEnableNext(false); // Reset for the next form
-      setDataSaved(false); // Reset for the next form
+      setEnableNext(false);
+      setDataSaved(false);
     }
   };
 
@@ -58,8 +59,6 @@ function FormSection() {
           </Button>
         </div>
       </div>
-
-      {/* Render the forms based on the active step */}
       {activeForm === 1 ? (
         <PersonnalDetail
           setEnableNext={setEnableNext}
@@ -67,6 +66,8 @@ function FormSection() {
         />
       ) : activeForm === 2 ? (
         <Summary setEnableNext={setEnableNext} setDataSaved={setDataSaved} />
+      ) : activeForm === 3 ? (
+        <Experience setEnableNext={setEnableNext} setDataSaved={setDataSaved} />
       ) : null}
     </div>
   );

@@ -1,11 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { resumeInfoContext } from '@/context/resumeInfoContext';
+import { toast } from 'sonner';
 
 function Summary({ setEnableNext, setDataSaved }) {
   const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
 
   const [summary, setSummary] = useState(resumeInfo.summary || '');
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [summary]); // Run effect when 'summary' changes
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -16,7 +25,9 @@ function Summary({ setEnableNext, setDataSaved }) {
       }));
       setEnableNext(true);
       setDataSaved(true);
+      toast.success('Details updated!');
     } else {
+      toast.error('Summary cannot be empty');
     }
   };
 
@@ -30,11 +41,13 @@ function Summary({ setEnableNext, setDataSaved }) {
         </div>
 
         <Textarea
-          className="mt-5"
+          ref={textareaRef}
+          className="mt-5 resize-none"
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
           required
           placeholder="Enter a brief summary for your job title..."
+          style={{ overflow: 'hidden' }}
         />
 
         <div className="mt-6 flex justify-end">
