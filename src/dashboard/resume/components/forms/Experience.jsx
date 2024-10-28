@@ -14,6 +14,14 @@ const formField = {
 function Experience() {
   const [experienceList, setExperienceList] = useState([formField]);
 
+  const AddNewExperience = () => {
+    setExperienceList([...experienceList, formField]);
+  };
+
+  const removeExperience = () => {
+    setExperienceList(experienceList.slice(0, -1));
+  };
+
   const handleChange = (index, event) => {
     const { name, value } = event.target;
     const updatedExperienceList = [...experienceList];
@@ -98,10 +106,24 @@ function Experience() {
           ))}
         </div>
         <div className="flex justify-between">
-          <button variant="outline" className="text-primary">
-            + Add more Experience
-          </button>
-          <button className="p-4 m-3 rounded-md bg-purple-500 text-white">
+          <div className="flex gap-9">
+            <button
+              variant="outline"
+              className="text-primary border border-primary px-2 py-2 rounded-lg"
+              onClick={AddNewExperience}
+            >
+              + Add more Experience
+            </button>
+            <button
+              variant="outline"
+              className="text-primary border border-primary px-2 rounded"
+              onClick={removeExperience}
+            >
+              - Remove Experience
+            </button>
+          </div>
+
+          <button className="p-2.5 m-4 rounded-md bg-purple-500 text-white">
             Save
           </button>
         </div>
