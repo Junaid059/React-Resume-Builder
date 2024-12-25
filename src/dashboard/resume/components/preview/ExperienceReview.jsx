@@ -1,5 +1,3 @@
-import React from 'react';
-
 function ExperienceReview({ resumeInfo }) {
   return (
     <div className="my-6">
@@ -9,9 +7,7 @@ function ExperienceReview({ resumeInfo }) {
       >
         Professional Experience
       </h2>
-
       <hr style={{ borderColor: resumeInfo?.themeColor }} />
-
       {resumeInfo?.experience?.length > 0 ? (
         resumeInfo.experience.map((experience, index) => (
           <div key={index} className="my-5">
@@ -24,11 +20,15 @@ function ExperienceReview({ resumeInfo }) {
             <h2 className="text-sm flex justify-between">
               {experience?.companyName}, {experience?.city}, {experience?.state}
               <span>
-                {experience?.startDate},{' '}
+                {experience?.startDate}{' '}
                 {experience?.currentlyWorkin ? 'Present' : experience?.endDate}
               </span>
             </h2>
-            <p className="text-xs my-2">{experience?.workSummery}</p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: experience?.workSummery || '',
+              }}
+            ></div>
           </div>
         ))
       ) : (

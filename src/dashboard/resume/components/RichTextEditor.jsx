@@ -1,52 +1,33 @@
-import { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  BtnBold,
-  BtnBulletList,
-  BtnClearFormatting,
-  BtnItalic,
-  BtnLink,
-  BtnNumberedList,
-  BtnRedo,
-  BtnStrikeThrough,
-  BtnStyles,
-  BtnUnderline,
-  BtnUndo,
-  Separator,
-  Toolbar,
   EditorProvider,
   Editor,
+  Toolbar,
+  BtnBold,
+  BtnItalic,
+  BtnUnderline,
+  Separator,
 } from 'react-simple-wysiwyg';
-import { resumeInfoContext } from '@/context/resumeInfoContext';
 
-function RichTextEditor({ index }) {
-  const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
-  const [value, setValue] = useState(
-    resumeInfo.experience[index]?.workSummary || ''
-  );
+function RichTextEditor({ value = '', onRichTextEditorChange }) {
+  const [editorValue, setEditorValue] = useState(value || ''); // Ensure default value is a string
 
-  const onChange = (e) => {
-    setValue(e.target.value);
+  const handleChange = (updatedValue) => {
+    setEditorValue(updatedValue || ''); // Ensure it updates as a string
+    onRichTextEditorChange(updatedValue || ''); // Pass a string to the handler
   };
 
   return (
     <EditorProvider>
-      <Editor value={value} onChange={onChange}>
+      <Editor
+        value={editorValue}
+        onChange={(e) => handleChange(e.target.value || '')} // Ensure string is passed
+      >
         <Toolbar>
-          <BtnUndo />
-          <BtnRedo />
-          <Separator />
           <BtnBold />
           <BtnItalic />
           <BtnUnderline />
-          <BtnStrikeThrough />
           <Separator />
-          <BtnNumberedList />
-          <BtnBulletList />
-          <Separator />
-          <BtnLink />
-          <BtnClearFormatting />
-          <Separator />
-          <BtnStyles />
         </Toolbar>
       </Editor>
     </EditorProvider>
