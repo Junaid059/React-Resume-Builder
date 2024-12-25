@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   BtnBold,
   BtnBulletList,
@@ -16,13 +16,17 @@ import {
   EditorProvider,
   Editor,
 } from 'react-simple-wysiwyg';
+import { resumeInfoContext } from '@/context/resumeInfoContext';
 
-function RichTextEditor() {
-  const [value, setValue] = useState('simple text');
+function RichTextEditor({ index }) {
+  const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
+  const [value, setValue] = useState(
+    resumeInfo.experience[index]?.workSummary || ''
+  );
 
-  function onChange(e) {
+  const onChange = (e) => {
     setValue(e.target.value);
-  }
+  };
 
   return (
     <EditorProvider>

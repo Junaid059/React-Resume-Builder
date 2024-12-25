@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import RichTextEditor from '../RichTextEditor';
+import { resumeInfoContext } from '@/context/resumeInfoContext';
 
 const formField = {
   title: '',
@@ -13,6 +14,7 @@ const formField = {
 
 function Experience() {
   const [experienceList, setExperienceList] = useState([formField]);
+  const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
 
   const AddNewExperience = () => {
     setExperienceList([...experienceList, formField]);
@@ -28,6 +30,21 @@ function Experience() {
     updatedExperienceList[index][name] = value;
     setExperienceList(updatedExperienceList);
   };
+
+  const handleSave = () => {
+    // Update the context with the latest experience list
+    setResumeInfo({
+      ...resumeInfo,
+      experience: experienceList,
+    });
+  };
+
+  useEffect(() => {
+    setResumeInfo({
+      ...resumeInfo,
+      experience: experienceList,
+    });
+  }, [experienceList]);
 
   return (
     <div>
@@ -99,7 +116,7 @@ function Experience() {
                   />
                 </div>
                 <div className="col-span-2 my-8">
-                  <RichTextEditor />
+                  <RichTextEditor index={index} />
                 </div>
               </div>
             </div>
@@ -123,7 +140,10 @@ function Experience() {
             </button>
           </div>
 
-          <button className="p-2.5 m-4 rounded-md bg-purple-500 text-white">
+          <button
+            className="p-2.5 m-4 rounded-md bg-purple-500 text-white"
+            onClick={handleSave} // Trigger the save function
+          >
             Save
           </button>
         </div>
