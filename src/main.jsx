@@ -8,7 +8,8 @@ import Dashboard from './dashboard/index.jsx';
 import Home from './home/index.jsx';
 import { ClerkProvider } from '@clerk/clerk-react';
 import EditResume from './dashboard/resume/[resumeId]/edit/index.jsx';
-import Education from './dashboard/resume/components/forms/Education.jsx';
+import DownloadResume from './dashboard/Download/DownloadResume.jsx';
+
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 const router = createBrowserRouter([
@@ -33,10 +34,6 @@ const router = createBrowserRouter([
     path: '/auth/sign-in',
     element: <SignInPage />,
   },
-  // {
-  //   path: '/education',
-  //   element: <Education />,
-  // },
 ]);
 
 createRoot(document.getElementById('root')).render(

@@ -7,10 +7,11 @@ import EducationalReview from './preview/EducationalReview';
 import SkillReview from './preview/SkillReview';
 
 function ResumeReview() {
-  const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
+  const { resumeInfo } = useContext(resumeInfoContext);
 
   return (
     <div
+      id="resume-preview"
       className="shadow-lg h-full p-14 border-t-[20px]"
       style={{ borderColor: resumeInfo?.themeColor }}
     >

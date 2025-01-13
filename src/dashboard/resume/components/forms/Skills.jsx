@@ -3,9 +3,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Rating } from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
 import { Button } from '@/components/ui/button';
-import { resumeInfoContext as ResumeInfoContext } from '@/context/ResumeInfoContext';
+import { resumeInfoContext } from '@/context/ResumeInfoContext';
 import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
+import { Download, Share2 } from 'lucide-react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 function Skills() {
   const [skillsList, setSkillsList] = useState([
     {
@@ -14,7 +18,7 @@ function Skills() {
     },
   ]);
   const { resumeId } = useParams();
-  const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+  const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
 
   useEffect(() => {
     resumeInfo && setSkillsList(resumeInfo?.skills);
@@ -22,7 +26,6 @@ function Skills() {
 
   const handleChange = (index, name, value) => {
     const newEntries = skillsList.slice();
-
     newEntries[index][name] = value;
     setSkillsList(newEntries);
   };
@@ -36,6 +39,7 @@ function Skills() {
       },
     ]);
   };
+
   const RemoveSkills = () => {
     setSkillsList((skillsList) => skillsList.slice(0, -1));
   };
@@ -46,8 +50,6 @@ function Skills() {
     if (isValid) {
       setResumeInfo({ ...resumeInfo, skills: skillsList });
       toast.success('Details updated!');
-      setDataSaved(true);
-      setEnableNext(true);
     } else {
       toast.error('Please fill in all fields before saving.');
     }
@@ -59,10 +61,56 @@ function Skills() {
       skills: skillsList,
     });
   }, [skillsList]);
+
+  const handleDownload = async () => {
+    const resumeElement = document.getElementById('resume-preview');
+    if (!resumeElement) {
+      toast.error('Resume preview not found');
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(resumeElement, {
+        scale: 2,
+        logging: false,
+        useCORS: true,
+        allowTaint: true,
+      });
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('resume.pdf');
+      toast.success('Resume downloaded successfully!');
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      toast.error('Failed to download resume. Please try again.');
+    }
+  };
+
+  const handleShare = () => {
+    // Placeholder for share functionality
+    toast.success('Sharing resume...');
+    // Implement actual share logic here
+  };
+
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
-      <h2 className="font-bold text-lg">Skills</h2>
-      <p>Add Your top professional key skills</p>
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <h2 className="font-bold text-lg">Skills</h2>
+          <p>Add Your top professional key skills</p>
+        </div>
+        <div className="flex gap-2">
+          <Button onClick={handleDownload} variant="outline">
+            <Download className="mr-2 h-4 w-4" /> Download
+          </Button>
+          <Button onClick={handleShare} variant="outline">
+            <Share2 className="mr-2 h-4 w-4" /> Share
+          </Button>
+        </div>
+      </div>
 
       <div>
         {skillsList.map((item, index) => (
