@@ -5,6 +5,7 @@ import PersonnalDetail from './forms/PersonnalDetail';
 import Summary from './forms/Summary';
 import Experience from './forms/Experience';
 import Education from './forms/Education';
+import Skills from './forms/Skills';
 
 function FormSection() {
   const [activeForm, setActiveForm] = useState(1);
@@ -75,6 +76,9 @@ function FormSection() {
       )}
       {activeForm === 4 && (
         <Education setEnableNext={setEnableNext} setDataSaved={setDataSaved} />
+      )}
+      {activeForm === 5 && (
+        <Skills setEnableNext={setEnableNext} setDataSaved={setDataSaved} />
       )}
     </div>
   );
