@@ -89,12 +89,6 @@ function Skills() {
     }
   };
 
-  const handleShare = () => {
-    // Placeholder for share functionality
-    toast.success('Sharing resume...');
-    // Implement actual share logic here
-  };
-
   return (
     <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
       <div className="flex justify-between items-center mb-4">
@@ -105,9 +99,6 @@ function Skills() {
         <div className="flex gap-2">
           <Button onClick={handleDownload} variant="outline">
             <Download className="mr-2 h-4 w-4" /> Download
-          </Button>
-          <Button onClick={handleShare} variant="outline">
-            <Share2 className="mr-2 h-4 w-4" /> Share
           </Button>
         </div>
       </div>
