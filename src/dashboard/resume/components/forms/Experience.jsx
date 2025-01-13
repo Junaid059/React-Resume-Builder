@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import RichTextEditor from '../RichTextEditor';
 import { resumeInfoContext } from '@/context/ResumeInfoContext';
+import { toast } from 'sonner';
 
 const formField = {
   title: '',
@@ -17,6 +18,8 @@ const formField = {
 function Experience() {
   const [experinceList, setExperinceList] = useState([]);
   const { resumeInfo, setResumeInfo } = useContext(resumeInfoContext);
+  const [enableNext, setEnableNext] = useState(false);
+  const [dataSaved, setDataSaved] = useState(false);
 
   useEffect(() => {
     if (resumeInfo?.experience && Array.isArray(resumeInfo.experience)) {
@@ -49,8 +52,24 @@ function Experience() {
   };
 
   const handleSave = () => {
-    setResumeInfo({ ...resumeInfo, experience: experinceList });
-    alert('Experience saved successfully!');
+    const isValid = experinceList.every(
+      (item) =>
+        item.title &&
+        item.companyName &&
+        item.city &&
+        item.state &&
+        item.startDate &&
+        item.endDate
+    );
+
+    if (isValid) {
+      setResumeInfo({ ...resumeInfo, experience: experinceList });
+      toast.success('Details updated!');
+      setDataSaved(true);
+      setEnableNext(true);
+    } else {
+      toast.error('Please fill in all fields before saving.');
+    }
   };
 
   return (
@@ -114,7 +133,7 @@ function Experience() {
             </div>
             <div className="col-span-2 mt-3">
               <RichTextEditor
-                value={item.workSummery || ''} // Ensure string is passed
+                value={item.workSummery || ''}
                 onRichTextEditorChange={(value) =>
                   handleRichTextEditor(value, index)
                 }

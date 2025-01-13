@@ -14,7 +14,7 @@ function Summary({ setEnableNext, setDataSaved }) {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [summary]); // Run effect when 'summary' changes
+  }, [summary]);
 
   const handleSave = (e) => {
     e.preventDefault();

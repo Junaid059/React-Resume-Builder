@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import PersonnalDetail from './forms/PersonnalDetail.jsx';
-import { ArrowRight, ArrowLeft, LayoutGrid } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Summary from './forms/Summary.jsx';
-import Experience from './forms/Experience.jsx';
+import { ArrowRight, ArrowLeft, LayoutGrid } from 'lucide-react';
+import PersonnalDetail from './forms/PersonnalDetail';
+import Summary from './forms/Summary';
+import Experience from './forms/Experience';
+import Education from './forms/Education';
 
 function FormSection() {
   const [activeForm, setActiveForm] = useState(1);
@@ -13,8 +14,8 @@ function FormSection() {
   const handleNext = () => {
     if (enableNext && dataSaved) {
       setActiveForm((prev) => prev + 1);
-      setEnableNext(false);
-      setDataSaved(false);
+      setEnableNext(true);
+      setDataSaved(true);
     }
   };
 
@@ -59,16 +60,22 @@ function FormSection() {
           </Button>
         </div>
       </div>
-      {activeForm === 1 ? (
+
+      {activeForm === 1 && (
         <PersonnalDetail
           setEnableNext={setEnableNext}
           setDataSaved={setDataSaved}
         />
-      ) : activeForm === 2 ? (
+      )}
+      {activeForm === 2 && (
         <Summary setEnableNext={setEnableNext} setDataSaved={setDataSaved} />
-      ) : activeForm === 3 ? (
+      )}
+      {activeForm === 3 && (
         <Experience setEnableNext={setEnableNext} setDataSaved={setDataSaved} />
-      ) : null}
+      )}
+      {activeForm === 4 && (
+        <Education setEnableNext={setEnableNext} setDataSaved={setDataSaved} />
+      )}
     </div>
   );
 }
