@@ -10,8 +10,6 @@ function EducationalReview({ resumeInfo }) {
         Education
       </h2>
       <hr style={{ borderColor: resumeInfo?.themeColor }} />
-
-      {/* Safeguard: Check if education exists and has length */}
       {resumeInfo?.education?.length > 0 ? (
         resumeInfo.education.map((education, index) => (
           <div key={index} className="my-5">

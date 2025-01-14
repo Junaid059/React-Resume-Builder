@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import RichTextEditor from '../RichTextEditor';
-import { resumeInfoContext } from '@/context/ResumeInfoContext';
+import { resumeInfoContext } from '@/context/resumeInfoContext';
 import { toast } from 'sonner';
 
 const formField = {

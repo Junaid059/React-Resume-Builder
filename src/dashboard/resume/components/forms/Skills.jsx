@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Rating } from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
 import { Button } from '@/components/ui/button';
-import { resumeInfoContext } from '@/context/ResumeInfoContext';
+import { resumeInfoContext } from '@/context/resumeInfoContext';
 import { useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Download, Share2 } from 'lucide-react';
