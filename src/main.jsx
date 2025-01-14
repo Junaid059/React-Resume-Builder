@@ -8,7 +8,6 @@ import Dashboard from './dashboard/index.jsx';
 import Home from './home/index.jsx';
 import { ClerkProvider } from '@clerk/clerk-react';
 import EditResume from './dashboard/resume/[resumeId]/edit/index.jsx';
-import DownloadResume from './dashboard/Download/DownloadResume.jsx';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 

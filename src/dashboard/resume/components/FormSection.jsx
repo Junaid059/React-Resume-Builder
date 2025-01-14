@@ -61,7 +61,6 @@ function FormSection() {
           </Button>
         </div>
       </div>
-
       {activeForm === 1 && (
         <PersonnalDetail
           setEnableNext={setEnableNext}
