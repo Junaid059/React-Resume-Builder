@@ -14,10 +14,6 @@ function PersonnalDetail({ resumeInfo }) {
       <h2 className="text-center text-sm font-medium">
         {resumeInfo?.jobTitle}
       </h2>
-      {/* style=
-      {{
-        color: resumeInfo?.themeColor,
-      }} */}
       <h2
         className="text-center font-normal text-xs"
         style={{ color: resumeInfo?.address }}
