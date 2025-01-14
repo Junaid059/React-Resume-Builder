@@ -1,6 +1,6 @@
 import React from 'react';
 
-function personnalDetail({ resumeInfo }) {
+function PersonnalDetail({ resumeInfo }) {
   return (
     <div>
       <h2
@@ -43,4 +43,4 @@ function personnalDetail({ resumeInfo }) {
   );
 }
 
-export default personnalDetail;
+export default PersonnalDetail;

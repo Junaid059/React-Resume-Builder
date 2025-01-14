@@ -1,6 +1,6 @@
 import { resumeInfoContext } from '@/context/resumeInfoContext';
 import React, { useContext } from 'react';
-import personnalDetail from './preview/personnalDetail';
+import PersonnalDetail from './preview/PersonnalDetail';
 import SummaryReview from './preview/SummaryReview';
 import ExperienceReview from './preview/ExperienceReview';
 import EducationalReview from './preview/EducationalReview';
@@ -15,7 +15,7 @@ function ResumeReview() {
       className="shadow-lg h-full p-14 border-t-[20px]"
       style={{ borderColor: resumeInfo?.themeColor }}
     >
-      <personnalDetail resumeInfo={resumeInfo} />
+      <PersonnalDetail resumeInfo={resumeInfo} />
       <SummaryReview resumeInfo={resumeInfo} />
       <ExperienceReview resumeInfo={resumeInfo} />
       <EducationalReview resumeInfo={resumeInfo} />
