@@ -1,6 +1,6 @@
 import { resumeInfoContext } from '@/context/resumeInfoContext';
 import React, { useContext } from 'react';
-import personnalDetail from './preview/PersonnalDetail';
+import personnalDetail from './preview/personnalDetail';
 import SummaryReview from './preview/SummaryReview';
 import ExperienceReview from './preview/ExperienceReview';
 import EducationalReview from './preview/EducationalReview';
